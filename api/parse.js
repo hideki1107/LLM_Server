@@ -51,7 +51,10 @@ export default async function handler(req, res) {
               `制約:\n` +
               `- date は数字のみ（8桁 or 12桁）\n` +
               `- title は短く\n` +
-              `- detail は必要なら改行してよい\n`
+              `- detail は必要なら改行してよい\n` +
+              `- title/detail には絵文字を含めてもよい\n` +
+              `- detail にはHTMLタグ（例: <br>, <strong>, <a>）を含めてもよい\n` +
+              `- ただし出力は必ず正しいJSON文字列にする（HTML中の " は必要に応じてエスケープ）\n`
           }
         ],
         // JSONだけを返させる（対応モデルの場合）
