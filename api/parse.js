@@ -60,31 +60,8 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-
-    // OpenAI Responses の output_text からJSONを返す
-    const outputText =
-      (typeof data?.output_text === "string" && data.output_text.trim()) ? data.output_text.trim() : "";
-
-    let parsed = null;
-    if (outputText) {
-      try {
-        parsed = JSON.parse(outputText);
-      } catch {
-        parsed = null;
-      }
-    }
-
-    // パースできない場合はデバッグ用に生データも返す（フロントで原因が分かるように）
-    if (!parsed || typeof parsed !== "object") {
-      return res.status(200).json({
-        error: "invalid_model_output",
-        detail: "Model output was not valid JSON object",
-        output_text: outputText,
-        raw: data
-      });
-    }
-
-    return res.status(200).json(parsed);
+    // OpenAI APIの返却(JSON)を加工せずそのまま返す
+    return res.status(200).json(data);
   } catch (e) {
     return res.status(500).json({ error: "failed", detail: e.message });
   }
